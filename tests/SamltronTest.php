@@ -1,12 +1,12 @@
 <?php
 
-namespace Riverbedlab\Samltron\Tests;
+namespace Riverbedlab\Industrialist\Tests;
 
-use Riverbedlab\Samltron\Facades\Samltron;
-use Riverbedlab\Samltron\Providers\ServiceProvider;
+use Riverbedlab\Industrialist\Facades\Industrialist;
+use Riverbedlab\Industrialist\Providers\ServiceProvider;
 use Orchestra\Testbench\TestCase;
 
-class SamltronTest extends TestCase
+class IndustrialistTest extends TestCase
 {
     protected function getPackageProviders($app)
     {
@@ -16,7 +16,7 @@ class SamltronTest extends TestCase
     protected function getPackageAliases($app)
     {
         return [
-            'samltron' => Samltron::class,
+            'industrialist' => Industrialist::class,
         ];
     }
 

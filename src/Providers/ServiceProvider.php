@@ -1,15 +1,15 @@
 <?php
 
-namespace Riverbedlab\Samltron\Providers;
+namespace Riverbedlab\Industrialist\Providers;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
-    const CONFIG_PATH = __DIR__ . '/../config/samltron.php';
+    const CONFIG_PATH = __DIR__ . '/../config/industrialist.php';
 
     public function boot()
     {
         $this->publishes([
-            self::CONFIG_PATH => config_path('samltron.php'),
+            self::CONFIG_PATH => config_path('industrialist.php'),
         ], 'config');
     }
 
@@ -17,11 +17,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->mergeConfigFrom(
             self::CONFIG_PATH,
-            'samltron'
+            'industrialist'
         );
 
-        $this->app->bind('samltron', function () {
-            return new Samltron();
+        $this->app->bind('industrialist', function () {
+            return new Industrialist();
         });
     }
 }

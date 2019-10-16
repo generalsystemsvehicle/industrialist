@@ -1,5 +1,5 @@
 {
-  "name": "riverbedlab/samltron",
+  "name": "riverbedlab/industrialist",
   "description": "A SAML2 Service Provide for Laravel 6",
   "license": "MIT",
   "keywords": [
@@ -22,12 +22,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Riverbedlab\\Samltron\\": "src"
+      "Riverbedlab\\Industrialist\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Riverbedlab\\Samltron\\Tests\\": "tests"
+      "Riverbedlab\\Industrialist\\Tests\\": "tests"
     }
   },
   "scripts": {
@@ -36,7 +36,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Riverbedlab\\Samltron\\Providers\\ServiceProvider"
+        "Riverbedlab\\Industrialist\\Providers\\ServiceProvider"
       ]
     }
   },

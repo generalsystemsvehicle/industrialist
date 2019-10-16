@@ -1,13 +1,13 @@
 <?php
 
-namespace Riverbedlab\Samltron\Facades;
+namespace Riverbedlab\Industrialist\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Samltron extends Facade
+class Industrialist extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'samltron';
+        return 'industrialist';
     }
 }

@@ -1,12 +1,12 @@
-# Samltron
+# Industrialist
 
-[![Build Status](https://travis-ci.org/riverbedlab/samltron.svg?branch=master)](https://travis-ci.org/riverbedlab/samltron)
+[![Build Status](https://travis-ci.org/riverbedlab/industrialist.svg?branch=master)](https://travis-ci.org/riverbedlab/industrialist)
 [![styleci](https://styleci.io/repos/CHANGEME/shield)](https://styleci.io/repos/CHANGEME)
-[![Coverage Status](https://coveralls.io/repos/github/riverbedlab/samltron/badge.svg?branch=master)](https://coveralls.io/github/riverbedlab/samltron?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/riverbedlab/industrialist/badge.svg?branch=master)](https://coveralls.io/github/riverbedlab/industrialist?branch=master)
 
-[![Packagist](https://img.shields.io/packagist/v/riverbedlab/samltron.svg)](https://packagist.org/packages/riverbedlab/samltron)
-[![Packagist](https://poser.pugx.org/riverbedlab/samltron/d/total.svg)](https://packagist.org/packages/riverbedlab/samltron)
-[![Packagist](https://img.shields.io/packagist/l/riverbedlab/samltron.svg)](https://packagist.org/packages/riverbedlab/samltron)
+[![Packagist](https://img.shields.io/packagist/v/riverbedlab/industrialist.svg)](https://packagist.org/packages/riverbedlab/industrialist)
+[![Packagist](https://poser.pugx.org/riverbedlab/industrialist/d/total.svg)](https://packagist.org/packages/riverbedlab/industrialist)
+[![Packagist](https://img.shields.io/packagist/l/riverbedlab/industrialist.svg)](https://packagist.org/packages/riverbedlab/industrialist)
 
 A SAML2 Service Provider package for Laravel 6
 
@@ -14,13 +14,13 @@ A SAML2 Service Provider package for Laravel 6
 
 Install via composer
 ```bash
-composer require riverbedlab/samltron
+composer require riverbedlab/industrialist
 ```
 
 ### Publish Configuration File
 
 ```bash
-php artisan vendor:publish --provider="Riverbedlab\Samltron\Providers\ServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Riverbedlab\Industrialist\Providers\ServiceProvider" --tag="config"
 ```
 
 ## Usage
@@ -34,5 +34,5 @@ instead of using the issue tracker.
 
 ## Credits
 
-- [](https://github.com/riverbedlab/samltron)
-- [All contributors](https://github.com/riverbedlab/samltron/graphs/contributors)
+- [](https://github.com/riverbedlab/industrialist)
+- [All contributors](https://github.com/riverbedlab/industrialist/graphs/contributors)
