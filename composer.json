@@ -1,0 +1,48 @@
+{
+  "name": "riverbedlab/samltron",
+  "description": "A SAML2 Service Provide for Laravel 6",
+  "license": "MIT",
+  "keywords": [
+    "saml2", "sso", "laravel", "authentication"
+  ],
+  "type": "library",
+  "authors": [
+    {
+      "name": "Lee Hilton",
+      "email": "lee.hilton@riverbed.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "illuminate/support": "^6.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^4.2",
+    "phpunit/phpunit": "^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Riverbedlab\\Samltron\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Riverbedlab\\Samltron\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "phpunit": "phpunit"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Riverbedlab\\Samltron\\Providers\\ServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  }
+}
