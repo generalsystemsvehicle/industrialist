@@ -4,7 +4,7 @@ namespace Riverbedlab\Industrialist\Providers;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
-    const CONFIG_PATH = __DIR__ . '/../config/industrialist.php';
+    const CONFIG_PATH = __DIR__ . '/../../config/industrialist.php';
 
     public function boot()
     {
