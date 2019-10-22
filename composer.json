@@ -3,7 +3,10 @@
   "description": "A SAML2 Service Provide for Laravel 6",
   "license": "MIT",
   "keywords": [
-    "saml2", "sso", "laravel", "authentication"
+    "saml2",
+    "sso",
+    "laravel",
+    "authentication"
   ],
   "type": "library",
   "authors": [
@@ -14,7 +17,8 @@
   ],
   "require": {
     "php": ">=7.2",
-    "illuminate/support": "^6.0"
+    "illuminate/support": "^6.0",
+    "onelogin/php-saml": "^3.3.0"
   },
   "require-dev": {
     "orchestra/testbench": "^4.2",
