@@ -89,7 +89,7 @@ class Saml2 implements Driver
      */
     public function processResponse()
     {
-        if ($this->auth->processedResponse === false) {
+        if ($this->processedResponse === false) {
             $this->auth->processResponse();
             $this->processedResponse = true;
         }
