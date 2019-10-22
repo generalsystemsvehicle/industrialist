@@ -38,7 +38,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function register()
     {
         foreach (config('industrialist.identity_providers') as $key => $idp) {
-            $this->mergeConfigFrom(
+            $this->mergeRecursiveConfigFrom(
                 self::IDP_CONFIG_PATH,
                 'industrialist.identity_providers.' . $key . '.settings'
             );

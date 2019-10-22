@@ -31,11 +31,22 @@ class Saml2 implements Driver
     public static function create(string $idpKey): Driver
     {
         $industrialist_settings = config('industrialist');
-        $idp_settings = config("industrialist.identity_providers.{$idpKey}");
+        $idp_config_path = "industrialist.identity_providers.{$idpKey}";
+        $idp_settings = config($idp_config_path);
+
         if (!$idp_settings) {
             throw new BadIdentityProviderKeyException();
         }
+
         $industrialist_settings['idp'] = $idp_settings;
+
+        if ($idp_sp_settings = config($idp_config_path . '.sp')) {
+            $industrialist_settings['sp'] = array_replace_recursive(
+                $industrialist_settings['sp'],
+                $idp_sp_settings
+            );
+        }
+
         return new static($industrialist_settings);
     }
 
