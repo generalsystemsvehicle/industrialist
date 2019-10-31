@@ -11,13 +11,23 @@ use Riverbedlab\Industrialist\Models\User;
 
 class Saml2 implements Driver
 {
-    protected $industrialist_settings = [];
-    protected $processedResponse = false;
-
     /**
      * @var \OneLogin_Saml2_Auth
      */
     protected $auth;
+
+    protected $processedResponse = false;
+
+    /**
+     * Initializes the SP SAML instance.
+     *
+     * @param array $industrialist_settings An array with a definition compatible with OneLogin_Saml_Settings
+     *
+     */
+    public function __construct(OneLogin_Saml2_Auth $auth)
+    {
+        $this->auth = $auth;
+    }
 
     /**
      * Initializes the SP SAML instance.
@@ -25,10 +35,25 @@ class Saml2 implements Driver
      * @param string $idpKey The array key of the Identity Provider you wish to use from the config file.
      *
      * @return Driver
+     */
+    public static function create(string $idpKey): Driver
+    {
+        // dd(static::createSettings($idpKey));
+        $auth = new OneLogin_Saml2_Auth(static::createSettings($idpKey));
+
+        return new static($auth);
+    }
+
+    /**
+     * Initializes the SP SAML settings.
+     *
+     * @param string $idpKey The array key of the Identity Provider you wish to use from the config file.
+     *
+     * @return Array
      *
      * @throws BadIdentityProviderKeyException
      */
-    public static function create(string $idpKey): Driver
+    public static function createSettings(string $idpKey): array
     {
         $industrialist_settings = config('industrialist');
         $idp_config_path = "industrialist.identity_providers.{$idpKey}";
@@ -47,19 +72,76 @@ class Saml2 implements Driver
             );
         }
 
-        return new static($industrialist_settings);
+        return $industrialist_settings;
     }
 
     /**
-     * Initializes the SP SAML instance.
+     * Getter for processedResponse attribute
      *
-     * @param array $industrialist_settings An array with a definition compatible with OneLogin_Saml_Settings
+     * @return boolean
+     */
+    public function getProcessedResponse()
+    {
+        return $this->processedResponse;
+    }
+
+    /**
+     * Redirects to the Identity Providers logout endpoint
      *
      */
-    public function __construct(array $industrialist_settings)
+    public function logout()
     {
-        $this->industrialist_settings = $industrialist_settings;
-        $this->auth = new OneLogin_Saml2_Auth($this->industrialist_settings);
+        return $this->auth->logout();
+    }
+
+    /**
+     * Processes the response from the remote and generates a user object.
+     *
+     * @return mixed xml string metadata
+     */
+    public function metadata()
+    {
+        return $this->auth->getSettings()->getSPMetadata();
+    }
+
+    /**
+     * Process the SAML Logout Response / Logout Request sent by the IdP.
+     *
+     * @param bool        $keepLocalSession             When false will destroy the local session, otherwise will keep it
+     * @param string|null $requestId                    The ID of the LogoutRequest sent by this SP to the IdP
+     * @param bool        $retrieveParametersFromServer True if we want to use parameters from $_SERVER to validate the signature
+     * @param Callable    $cbDeleteSession              Callback to be executed to delete session
+     * @param bool        $stay                         True if we want to stay (returns the url string) False to redirect
+     *
+     * @return string|null
+     *
+     * @throws OneLogin_Saml2_Error
+     */
+    public function processLogout(
+        bool $keepLocalSession = false,
+        ?string $requestId = null,
+        bool $retrieveParametersFromServer = false,
+        ?callable $cbDeleteSession = null,
+        bool $stay = false
+    ) {
+        return $this->auth->processSLO(
+            $keepLocalSession,
+            $requestId,
+            $retrieveParametersFromServer,
+            $cbDeleteSession,
+            $stay
+        );
+    }
+
+    /**
+     * Process the saml response using the underlying OneLogin functionality.
+     */
+    public function processResponse()
+    {
+        if ($this->processedResponse === false) {
+            $this->auth->processResponse();
+            $this->processedResponse = true;
+        }
     }
 
     /**
@@ -83,7 +165,7 @@ class Saml2 implements Driver
         bool $stay = false,
         bool $setNameIdPolicy = true,
         ?string $nameIdValueReq = null
-    ): OneLogin_Saml2_Utils {
+    ): ?string {
         return $this->auth->login(
             $returnTo,
             $parameters,
@@ -93,17 +175,6 @@ class Saml2 implements Driver
             $setNameIdPolicy,
             $nameIdValueReq
         );
-    }
-
-    /**
-     * Process the saml response using the underlying OneLogin functionality.
-     */
-    public function processResponse()
-    {
-        if ($this->processedResponse === false) {
-            $this->auth->processResponse();
-            $this->processedResponse = true;
-        }
     }
 
     /**

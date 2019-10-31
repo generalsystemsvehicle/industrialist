@@ -3,10 +3,11 @@
 namespace Riverbedlab\Industrialist\Models;
 
 use Str;
+use Illuminate\Contracts\Support\Arrayable;
 use Riverbedlab\Industrialist\Exceptions\AttributeNotFoundException;
 use Riverbedlab\Industrialist\Exceptions\MethodNotFoundException;
 
-abstract class AbstractStatelessModel
+abstract class AbstractStatelessModel implements Arrayable
 {
     protected $attributes = [];
 
@@ -52,5 +53,15 @@ abstract class AbstractStatelessModel
         }
 
         throw new AttributeNotFoundException();
+    }
+
+    /**
+     * Get the instance as an array. Satisfies Arrayable contract.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->attributes;
     }
 }

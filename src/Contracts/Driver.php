@@ -12,18 +12,41 @@ interface Driver
      * @param string $idpKey The array key of the Identity Provider you wish to use from the config file.
      *
      * @return Driver
-     *
-     * @throws BadIdentityProviderKeyException
      */
     public static function create(string $idpKey): Driver;
 
     /**
-     * Initializes the Driver instance.
-     *
-     * @param array $industrialist_settings An array configuring the driver appropriately for it's type
-     *
+     * Initiates the drivers logout process
      */
-    public function __construct(array $industrialist_settings);
+    public function logout();
+
+    /**
+     * Processes the configuration file for the driver and produces XML metadata
+     *
+     * @return mixed xml string metadata
+     */
+    public function metadata();
+
+    /**
+     * Process the SAML Logout Response / Logout Request sent by the IdP.
+     *
+     * @param bool        $keepLocalSession             When false will destroy the local session, otherwise will keep it
+     * @param string|null $requestId                    The ID of the LogoutRequest sent by this SP to the IdP
+     * @param bool        $retrieveParametersFromServer True if we want to use parameters from $_SERVER to validate the signature
+     * @param Callable    $cbDeleteSession              Callback to be executed to delete session
+     * @param bool        $stay                         True if we want to stay (returns the url string) False to redirect
+     *
+     * @return string|null
+     *
+     * @throws OneLogin_Saml2_Error
+     */
+    public function processLogout(
+        bool $keepLocalSession = false,
+        ?string $requestId = null,
+        bool $retrieveParametersFromServer = false,
+        ?callable $cbDeleteSession = null,
+        bool $stay = false
+    );
 
     /**
      * Start a driver login, redirecting to the authority configured on this instance.
@@ -46,5 +69,12 @@ interface Driver
         bool $stay = false,
         bool $setNameIdPolicy = true,
         ?string $nameIdValueReq = null
-    ): OneLogin_Saml2_Utils;
+    ): ?string;
+
+    /**
+     * Processes the response from the remote and generates a user object.
+     *
+     * @return Riverbedlab\Industrialist\Models\User
+     */
+    public function user();
 }

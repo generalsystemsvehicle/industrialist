@@ -28,15 +28,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             ],
             'config'
         );
-    }
 
-    /**
-     * Register bindings in the container. Merges configuration sources.
-     *
-     * @return void
-     */
-    public function register()
-    {
         foreach (config('industrialist.identity_providers') as $key => $idp) {
             $this->mergeRecursiveConfigFrom(
                 self::IDP_CONFIG_PATH,
@@ -48,7 +40,15 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             'industrialist.sp'
         );
         $this->mergeConfigFrom(self::CONFIG_PATH, 'industrialist');
+    }
 
+    /**
+     * Register bindings in the container. Merges configuration sources.
+     *
+     * @return void
+     */
+    public function register()
+    {
         $this->app->bind('industrialist', function () {
             return new Industrialist();
         });
