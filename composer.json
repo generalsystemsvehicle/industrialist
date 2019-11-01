@@ -36,7 +36,12 @@
     }
   },
   "scripts": {
-    "phpunit": "phpunit"
+    "phpunit": "phpunit",
+    "larastan": "phpstan analyse --level=max",
+    "test": [
+        "phpunit",
+        "phpstan analyse --level=max"
+    ]
   },
   "extra": {
     "laravel": {
