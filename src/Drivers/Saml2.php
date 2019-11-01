@@ -2,29 +2,23 @@
 
 namespace Riverbedlab\Industrialist\Drivers;
 
-use OneLogin\Saml2\Auth as OneLogin_Saml2_Auth;
-use OneLogin\Saml2\Error as OneLogin_Saml2_Error;
-use OneLogin\Saml2\Utils as OneLogin_Saml2_Utils;
+use Riverbedlab\Industrialist\Contracts\Auth;
 use Riverbedlab\Industrialist\Contracts\Driver;
-use Riverbedlab\Industrialist\Exceptions\BadIdentityProviderKeyException;
+use Riverbedlab\Industrialist\Lib\OneLoginAuth;
+use Riverbedlab\Industrialist\Lib\Settings;
 use Riverbedlab\Industrialist\Models\User;
 
 class Saml2 implements Driver
 {
-    /**
-     * @var OneLogin_Saml2_Auth
-     */
     protected $auth;
-
-    protected $processedResponse = false;
 
     /**
      * Initializes the SP SAML instance.
      *
-     * @param OneLogin_Saml2_Auth $auth A configured auth instance setup for the desired IdP
+     * @param Auth $auth A configured auth instance setup for the desired IdP
      *
      */
-    public function __construct(OneLogin_Saml2_Auth $auth)
+    public function __construct(Auth $auth)
     {
         $this->auth = $auth;
     }
@@ -38,51 +32,9 @@ class Saml2 implements Driver
      */
     public static function create(string $idpKey): Driver
     {
-        // dd(static::createSettings($idpKey));
-        $auth = new OneLogin_Saml2_Auth(static::createSettings($idpKey));
-
+        $settings = Settings::create($idpKey);
+        $auth = new OneLoginAuth($settings);
         return new static($auth);
-    }
-
-    /**
-     * Initializes the SP SAML settings.
-     *
-     * @param string $idpKey The array key of the Identity Provider you wish to use from the config file.
-     *
-     * @return Array
-     *
-     * @throws BadIdentityProviderKeyException
-     */
-    public static function createSettings(string $idpKey): array
-    {
-        $industrialist_settings = config('industrialist');
-        $idp_config_path = "industrialist.identity_providers.{$idpKey}";
-        $idp_settings = config($idp_config_path);
-
-        if (!$idp_settings) {
-            throw new BadIdentityProviderKeyException();
-        }
-
-        $industrialist_settings['idp'] = $idp_settings;
-
-        if ($idp_sp_settings = config($idp_config_path . '.sp')) {
-            $industrialist_settings['sp'] = array_replace_recursive(
-                $industrialist_settings['sp'],
-                $idp_sp_settings
-            );
-        }
-
-        return $industrialist_settings;
-    }
-
-    /**
-     * Getter for processedResponse attribute
-     *
-     * @return boolean
-     */
-    public function getProcessedResponse()
-    {
-        return $this->processedResponse;
     }
 
     /**
@@ -101,7 +53,7 @@ class Saml2 implements Driver
      */
     public function metadata()
     {
-        return $this->auth->getSettings()->getSPMetadata();
+        return $this->auth->metadata();
     }
 
     /**
@@ -114,8 +66,6 @@ class Saml2 implements Driver
      * @param bool        $stay                         True if we want to stay (returns the url string) False to redirect
      *
      * @return string|null
-     *
-     * @throws OneLogin_Saml2_Error
      */
     public function processLogout(
         bool $keepLocalSession = false,
@@ -131,17 +81,6 @@ class Saml2 implements Driver
             $cbDeleteSession,
             $stay
         );
-    }
-
-    /**
-     * Process the saml response using the underlying OneLogin functionality.
-     */
-    public function processResponse()
-    {
-        if ($this->processedResponse === false) {
-            $this->auth->processResponse();
-            $this->processedResponse = true;
-        }
     }
 
     /**
@@ -184,7 +123,7 @@ class Saml2 implements Driver
      */
     public function user()
     {
-        $this->processResponse();
+        $this->auth->processResponse();
         $user = new User();
         $user->setNameId($this->auth->getNameId());
         $user->setNameIdFormat($this->auth->getNameIdFormat());

@@ -3,22 +3,14 @@
 namespace Riverbedlab\Industrialist\Tests\Drivers;
 
 use Carbon\Carbon;
-use OneLogin\Saml2\Auth as OneLogin_Saml2_Auth;
+// use OneLogin\Saml2\Auth as OneLogin_Saml2_Auth;
 use OneLogin\Saml2\Utils as OneLogin_Saml2_Utils;
 use Orchestra\Testbench\TestCase;
 use Riverbedlab\Industrialist\Drivers\Saml2;
 use Riverbedlab\Industrialist\Exceptions\BadIdentityProviderKeyException;
+use Riverbedlab\Industrialist\Lib\OneLoginAuth;
+use Riverbedlab\Industrialist\Lib\Settings;
 use Riverbedlab\Industrialist\Providers\ServiceProvider;
-
-/**
- * Override time() in the current namespace for testing.
- *
- * @return int
- */
-function time()
-{
-    return ReferenceTest::$now ?: \time();
-}
 
 class Saml2Test extends TestCase
 {
@@ -36,9 +28,9 @@ class Saml2Test extends TestCase
 
     protected function createOneLoginSaml2AuthMock()
     {
-        $settings = Saml2::createSettings('my_idp_key');
+        $settings = Settings::create('my_idp_key');
         $url = $settings['idp']['singleSignOnService']['url'];
-        $auth = $this->createMock(OneLogin_Saml2_Auth::class);
+        $auth = $this->createMock(OneLoginAuth::class);
         $auth->method('processResponse')->willReturn(true);
         $auth->method('login')->willReturn(redirect($url));
         $auth->method('getNameId')->willReturn('user@domain.tld');
@@ -89,21 +81,13 @@ class Saml2Test extends TestCase
 
     public function testRedirect()
     {
-        $settings = Saml2::createSettings('my_idp_key');
+        $settings = Settings::create('my_idp_key');
         $url = $settings['idp']['singleSignOnService']['url'];
         $auth = $this->createOneLoginSaml2AuthMock();
         $driver = new Saml2($auth);
         $response = $driver->redirect();
         $this->assertStringContainsString('Location:', $response);
         $this->assertStringContainsString($url, $response);
-    }
-
-    public function testProcessResponse()
-    {
-        $auth = $this->createOneLoginSaml2AuthMock();
-        $driver = new Saml2($auth);
-        $driver->processResponse();
-        $this->assertEquals($driver->getProcessedResponse(), true);
     }
 
     public function testUser()
