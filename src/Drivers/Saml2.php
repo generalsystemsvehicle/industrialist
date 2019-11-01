@@ -12,7 +12,7 @@ use Riverbedlab\Industrialist\Models\User;
 class Saml2 implements Driver
 {
     /**
-     * @var \OneLogin_Saml2_Auth
+     * @var OneLogin_Saml2_Auth
      */
     protected $auth;
 
@@ -21,7 +21,7 @@ class Saml2 implements Driver
     /**
      * Initializes the SP SAML instance.
      *
-     * @param array $industrialist_settings An array with a definition compatible with OneLogin_Saml_Settings
+     * @param OneLogin_Saml2_Auth $auth A configured auth instance setup for the desired IdP
      *
      */
     public function __construct(OneLogin_Saml2_Auth $auth)
@@ -180,7 +180,7 @@ class Saml2 implements Driver
     /**
      * Processes the response from the remote and generates a user object.
      *
-     * @return Riverbedlab\Industrialist\Models\User
+     * @return User
      */
     public function user()
     {

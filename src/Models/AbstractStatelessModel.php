@@ -19,7 +19,7 @@ abstract class AbstractStatelessModel implements Arrayable
      *
      * @return mixed the value of the attribute regardless of getter/setter if the attribute is found
      *
-     * @throws Riverbedlab\Industrialist\Exceptions\MethodNotFoundException
+     * @throws MethodNotFoundException
      *
      */
     public function __call(string $name, array $params)
@@ -42,7 +42,7 @@ abstract class AbstractStatelessModel implements Arrayable
      *
      * @return mixed the reference to the attribute
      *
-     * @throws Riverbedlab\Industrialist\Exceptions\AttributeNotFoundException
+     * @throws AttributeNotFoundException
      *
      */
     protected function &getAttributeReferenceFromCallName(string $name)

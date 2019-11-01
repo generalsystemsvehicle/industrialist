@@ -21,6 +21,7 @@
     "onelogin/php-saml": "^3.3.0"
   },
   "require-dev": {
+    "nunomaduro/larastan": "^0.4.3",
     "orchestra/testbench": "^4.2",
     "phpunit/phpunit": "^8.0"
   },

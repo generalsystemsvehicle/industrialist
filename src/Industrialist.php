@@ -12,7 +12,7 @@ class Industrialist
      *
      * @param string $key The array key of the Identity Provider you wish to use from the config file.
      *
-     * @return Riverbedlab\Industrialist\Contracts\Driver
+     * @return Driver
      */
     public function driver(string $key): Driver
     {

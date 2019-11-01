@@ -3,6 +3,8 @@
 namespace Riverbedlab\Industrialist\Contracts;
 
 use OneLogin\Saml2\Utils as OneLogin_Saml2_Utils;
+use OneLogin\Saml2\Error as OneLogin_Saml2_Error;
+use Riverbedlab\Industrialist\Models\User;
 
 interface Driver
 {
@@ -74,7 +76,7 @@ interface Driver
     /**
      * Processes the response from the remote and generates a user object.
      *
-     * @return Riverbedlab\Industrialist\Models\User
+     * @return User
      */
     public function user();
 }
