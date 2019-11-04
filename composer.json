@@ -23,7 +23,8 @@
   "require-dev": {
     "nunomaduro/larastan": "^0.4.3",
     "orchestra/testbench": "^4.2",
-    "phpunit/phpunit": "^8.0"
+    "phpunit/phpunit": "^8.0",
+    "rregeer/phpunit-coverage-check": "^0.3.1"
   },
   "autoload": {
     "psr-4": {
@@ -36,10 +37,9 @@
     }
   },
   "scripts": {
-    "phpunit": "phpunit",
-    "larastan": "phpstan analyse --level=max",
     "test": [
-        "phpunit",
+        "phpunit --coverage-clover clover.xml --coverage-text",
+        "coverage-check clover.xml 100",
         "phpstan analyse --level=max"
     ]
   },
