@@ -37,6 +37,9 @@
     }
   },
   "scripts": {
+    "post-install-cmd": [
+        "cp -Rf .githooks/. .git/hooks/"
+    ],
     "test": [
         "phpunit --coverage-clover clover.xml --coverage-html .coverage-report --coverage-text",
         "coverage-check clover.xml 100",
