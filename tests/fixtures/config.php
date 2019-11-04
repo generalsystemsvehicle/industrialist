@@ -46,12 +46,12 @@ return [
             'singleSignOnService' => [
                 // URL Target of the IdP where the SP will send the Authentication Request Message
                 'url' =>
-                    'https://localhost/sso/saml2/some_unique_app_id'
+                    'https://localhost/sso/saml2/some_unique_app_id/sls'
             ],
             // SLO endpoint info of the IdP.
             'singleLogoutService' => [
                 // URL Location of the IdP where the SP will send the SLO Request
-                'url' => '',
+                'url' => 'https://localhost/sso/saml2/some_unique_app_id/slo',
                 // URL location of the IdP where the SP will send the SLO Response (ResponseLocation)
                 // if not set, url for the SLO Request will be used
                 'responseUrl' => ''

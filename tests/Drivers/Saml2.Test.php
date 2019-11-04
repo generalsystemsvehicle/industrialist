@@ -3,7 +3,7 @@
 namespace Riverbedlab\Industrialist\Tests\Drivers;
 
 use Carbon\Carbon;
-// use OneLogin\Saml2\Auth as OneLogin_Saml2_Auth;
+use DOMDocument;
 use OneLogin\Saml2\Utils as OneLogin_Saml2_Utils;
 use Orchestra\Testbench\TestCase;
 use Riverbedlab\Industrialist\Drivers\Saml2;
@@ -26,13 +26,16 @@ class Saml2Test extends TestCase
         $app['config']->set('industrialist', include app_path('../../../../../tests/fixtures/config.php'));
     }
 
-    protected function createOneLoginSaml2AuthMock()
+    protected function createAuthMock()
     {
         $settings = Settings::create('my_idp_key');
-        $url = $settings['idp']['singleSignOnService']['url'];
+        $loginUrl = $settings['idp']['singleSignOnService']['url'];
+        $logoutUrl = $settings['idp']['singleLogoutService']['url'];
         $auth = $this->createMock(OneLoginAuth::class);
         $auth->method('processResponse')->willReturn(true);
-        $auth->method('login')->willReturn(redirect($url));
+        $auth->method('processSLO')->willReturn(null);
+        $auth->method('login')->willReturn(redirect($loginUrl));
+        $auth->method('logout')->willReturn(redirect($logoutUrl));
         $auth->method('getNameId')->willReturn('user@domain.tld');
         $auth->method('getNameIdFormat')->willReturn('urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress');
         $auth->method('isAuthenticated')->willReturn(true);
@@ -55,16 +58,15 @@ class Saml2Test extends TestCase
         return $auth;
     }
 
+    protected function createDriver()
+    {
+        $auth = $this->createAuthMock();
+        return new Saml2($auth);
+    }
+
     protected function getPackageProviders($app)
     {
         return [ServiceProvider::class];
-    }
-
-    protected function getPackageAliases($app)
-    {
-        return [
-            'industrialist' => Industrialist::class,
-        ];
     }
 
     public function testCreatingWithBadKey()
@@ -83,21 +85,47 @@ class Saml2Test extends TestCase
     {
         $settings = Settings::create('my_idp_key');
         $url = $settings['idp']['singleSignOnService']['url'];
-        $auth = $this->createOneLoginSaml2AuthMock();
-        $driver = new Saml2($auth);
+        $driver = $this->createDriver();
         $response = $driver->redirect();
         $this->assertStringContainsString('Location:', $response);
         $this->assertStringContainsString($url, $response);
     }
 
+    public function testLogout()
+    {
+        $settings = Settings::create('my_idp_key');
+        $url = $settings['idp']['singleLogoutService']['url'];
+        $driver = $this->createDriver();
+        $response = $driver->logout();
+        $this->assertStringContainsString('Location:', $response);
+        $this->assertStringContainsString($url, $response);
+    }
+
+    public function testProcessLogout()
+    {
+        $driver = $this->createDriver();
+        $logout = $driver->processLogout();
+        $this->assertEquals($logout, null);
+    }
+
     public function testUser()
     {
-        $auth = $this->createOneLoginSaml2AuthMock();
-        $driver = new Saml2($auth);
+        $driver = $this->createDriver();
         $user = $driver->user();
         $this->assertEquals($user->getNameId(), 'user@domain.tld');
         $this->assertEquals($user->getNameIdFormat(), 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress');
         $this->assertEquals($user->getSessionIndex(), 'FOOLIBRARY_a8a10b0fa413341868046c7fe13244f812ae5874');
         $this->assertEquals($user->getAttributes()['first_name'][0], 'Foo');
+    }
+
+    public function testMetadata()
+    {
+        $driver = Saml2::create('my_idp_key');
+        $metadata = $driver->metadata();
+        $xml = new DOMDocument();
+        $xml->loadXML($metadata);
+        $keys = $xml->getElementsByTagName('AssertionConsumerService');
+        $this->assertEquals(count($keys), 1);
+        $this->assertEquals($keys->item(0)->getAttribute('Location'), 'http://saml.test/sso/saml2/acs');
     }
 }
