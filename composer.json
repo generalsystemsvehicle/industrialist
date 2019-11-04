@@ -41,7 +41,13 @@
         "phpunit --coverage-clover clover.xml --coverage-html .coverage-report --coverage-text",
         "coverage-check clover.xml 100",
         "phpstan analyse --level=max"
-    ]
+    ],
+    "phpunit": "phpunit",
+    "coverage": [
+        "phpunit --coverage-clover clover.xml --coverage-html .coverage-report --coverage-text",
+        "coverage-check clover.xml 100"
+    ],
+    "phpstan": "phpstan analyse --level=max"
   },
   "extra": {
     "laravel": {

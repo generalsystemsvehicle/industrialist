@@ -1,4 +1,4 @@
-name: Package Test
+name: build
 
 on: [push]
 
@@ -17,4 +17,4 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest
 
     - name: Run test suite
-      run: composer test
+      run: composer phpunit
