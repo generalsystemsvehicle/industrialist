@@ -1,8 +1,8 @@
 # Industrialist
 
-[![Build Status](https://travis-ci.org/riverbedlab/industrialist.svg?branch=master)](https://travis-ci.org/riverbedlab/industrialist)
-[![styleci](https://styleci.io/repos/CHANGEME/shield)](https://styleci.io/repos/CHANGEME)
-[![Coverage Status](https://coveralls.io/repos/github/riverbedlab/industrialist/badge.svg?branch=master)](https://coveralls.io/github/riverbedlab/industrialist?branch=master)
+[![Build Status](https://github.com/riverbedlab/industrialist/workflows/build/badge.svg)](https://github.com/riverbedlab/industrialist/actions?query=workflow%3Abuild)
+[![Coverage Status](https://github.com/riverbedlab/industrialist/workflows/coverage/badge.svg)](https://github.com/riverbedlab/industrialist/actions?query=workflow%3Abuild)
+[![PHPStan Status](https://github.com/riverbedlab/industrialist/workflows/phpstan/badge.svg)](https://github.com/riverbedlab/industrialist/actions?query=workflow%3Abuild)
 
 [![Packagist](https://img.shields.io/packagist/v/riverbedlab/industrialist.svg)](https://packagist.org/packages/riverbedlab/industrialist)
 [![Packagist](https://poser.pugx.org/riverbedlab/industrialist/d/total.svg)](https://packagist.org/packages/riverbedlab/industrialist)
