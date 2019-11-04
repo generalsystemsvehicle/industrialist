@@ -2,6 +2,7 @@
 
 namespace Riverbedlab\Industrialist\Providers;
 
+use Riverbedlab\Industrialist\Routing\Console\ControllerMakeCommand;
 use Riverbedlab\Industrialist\Industrialist;
 use Riverbedlab\Industrialist\Traits\MergeRecursiveConfigFrom;
 
@@ -52,5 +53,20 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->app->bind('industrialist', function () {
             return new Industrialist();
         });
+
+        $this->registerControllerMakeCommand();
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerControllerMakeCommand()
+    {
+        $this->commands([ControllerMakeCommand::class]);
+        // $this->       ('command.controller.make', function ($app) {
+        //     return new ControllerMakeCommand($app['files']);
+        // });
     }
 }

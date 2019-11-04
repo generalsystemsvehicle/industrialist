@@ -1,0 +1,87 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyRootNamespaceHttp\Controllers\Controller;
+use Illuminate\Http\Request;
+use Riverbedlab\Industrialist\Facades\Industrialist;
+
+/**
+ * Basic sample SAML SP controller, will require addiitonal logic to integrate
+ * your apps specific authentication needs, principally acs() and sls().
+ *
+ * CSRF:
+ *
+ * Make sure you add an exception to your apples VerifyCsrfToken for the
+ * acs POST route.
+ *
+ * Routing:
+ *
+ * This controller can be routed with the following example routes:
+ *
+ *  Route::get('/saml/{driver}/login',    '\DummyNamespace\DummyClass@login');
+ *  Route::get('/saml/{driver}/logout',   '\DummyNamespace\DummyClass@logout');
+ *  Route::get('/saml/{driver}/metadata', '\DummyNamespace\DummyClass@metadata');
+ *  Route::post('/saml/{driver}/acs',     '\DummyNamespace\DummyClass@acs');
+ *  Route::get('/saml/{driver}/sls',      '\DummyNamespace\DummyClass@sls');
+ */
+class DummyClass extends Controller
+{
+    /**
+     * Initiate login redirect for the given IdP.
+     *
+     * @param  string  $idp_key
+     */
+    public function login($idp_key)
+    {
+        Industrialist::driver($idp_key)->redirect();
+    }
+
+    /**
+     * Initiate logout redirect for the given IdP.
+     *
+     * @param  string  $idp_key
+     */
+    public function logout($idp_key)
+    {
+        Industrialist::driver($idp_key)->logout();
+    }
+
+    /**
+     * Display the XML metadata for the current configured SP values.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function metadata($idp_key)
+    {
+        $metadata = Industrialist::driver($idp_key)->metadata();
+        return response($metadata)->header('Content-Type', 'text/xml');
+    }
+
+    /**
+     * Process the login assertion from the IdP
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $idp_key
+     * @return \Illuminate\Http\Response
+     */
+    public function acs(Request $request, $idp_key)
+    {
+        $user = Industrialist::driver($idp_key)->user();
+        return response()->json($user);
+    }
+
+    /**
+     * Process the logout assertion from the IdP
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $idp_key
+     * @return \Illuminate\Http\Response
+     */
+    public function sls(Request $request, $idp_key)
+    {
+        $res = Industrialist::driver($idp_key)->processLogout();
+        return response('Logged out');
+    }
+}
