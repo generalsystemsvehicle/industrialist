@@ -38,7 +38,7 @@
   },
   "scripts": {
     "test": [
-        "phpunit --coverage-clover clover.xml --coverage-text",
+        "phpunit --coverage-clover clover.xml --coverage-html .coverage-report --coverage-text",
         "coverage-check clover.xml 100",
         "phpstan analyse --level=max"
     ]
