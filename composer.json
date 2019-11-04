@@ -38,7 +38,7 @@
   },
   "scripts": {
     "post-install-cmd": [
-        "cp -Rf .githooks/. .git/hooks/"
+        "cp -Rfp .githooks/. .git/hooks/; chmod +x .git/hooks/*"
     ],
     "test": [
         "phpunit --coverage-clover clover.xml --coverage-html .coverage-report --coverage-text",
