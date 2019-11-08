@@ -126,6 +126,13 @@ class Saml2 implements Driver
     public function user()
     {
         $this->auth->processResponse();
+
+        if (count($this->auth->getErrors()) !== 0) {
+            throw new ProcessingResponseFailedException(
+                $this->auth->getLastErrorReason()
+            );
+        }
+
         $user = new User();
         $user->setNameId($this->auth->getNameId());
         $user->setNameIdFormat($this->auth->getNameIdFormat());
@@ -141,12 +148,6 @@ class Saml2 implements Driver
         $user->setAttributesWithFriendlyName(
             $this->auth->getAttributesWithFriendlyName()
         );
-
-        if (count($user->getErrors() ?? []) !== 0) {
-            throw new ProcessingResponseFailedException(
-                $user->getErrorReason() ?? 'Unknown reason'
-            );
-        }
 
         return $user;
     }
