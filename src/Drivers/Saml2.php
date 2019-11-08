@@ -4,6 +4,7 @@ namespace Riverbedlab\Industrialist\Drivers;
 
 use Riverbedlab\Industrialist\Contracts\Auth;
 use Riverbedlab\Industrialist\Contracts\Driver;
+use Riverbedlab\Industrialist\Exceptions\ProcessingResponseFailedException;
 use Riverbedlab\Industrialist\Lib\OneLoginAuth;
 use Riverbedlab\Industrialist\Lib\Settings;
 use Riverbedlab\Industrialist\Models\User;
@@ -120,6 +121,7 @@ class Saml2 implements Driver
      * Processes the response from the remote and generates a user object.
      *
      * @return User
+     * throw new AttributeNotFoundException();
      */
     public function user()
     {
@@ -139,6 +141,12 @@ class Saml2 implements Driver
         $user->setAttributesWithFriendlyName(
             $this->auth->getAttributesWithFriendlyName()
         );
+
+        if (count($user->getErrors() ?? []) !== 0) {
+            throw new ProcessingResponseFailedException(
+                $user->getErrorReason() ?? 'Unknown reason'
+            );
+        }
 
         return $user;
     }

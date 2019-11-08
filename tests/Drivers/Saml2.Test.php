@@ -8,6 +8,7 @@ use OneLogin\Saml2\Utils as OneLogin_Saml2_Utils;
 use Orchestra\Testbench\TestCase;
 use Riverbedlab\Industrialist\Drivers\Saml2;
 use Riverbedlab\Industrialist\Exceptions\BadIdentityProviderKeyException;
+use Riverbedlab\Industrialist\Exceptions\ProcessingResponseFailedException;
 use Riverbedlab\Industrialist\Lib\OneLoginAuth;
 use Riverbedlab\Industrialist\Lib\Settings;
 use Riverbedlab\Industrialist\Providers\ServiceProvider;
@@ -23,44 +24,99 @@ class Saml2Test extends TestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('industrialist', include app_path('../../../../../tests/fixtures/config.php'));
+        $app['config']->set(
+            'industrialist',
+            include app_path('../../../../../tests/fixtures/config.php')
+        );
     }
 
-    protected function createAuthMock()
+    protected function createAuthMock($methodOverrides = [])
     {
         $settings = Settings::create('my_idp_key');
         $loginUrl = $settings['idp']['singleSignOnService']['url'];
         $logoutUrl = $settings['idp']['singleLogoutService']['url'];
         $auth = $this->createMock(OneLoginAuth::class);
-        $auth->method('processResponse')->willReturn(true);
-        $auth->method('processSLO')->willReturn(null);
-        $auth->method('login')->willReturn(redirect($loginUrl));
-        $auth->method('logout')->willReturn(redirect($logoutUrl));
+        $auth
+            ->method('processResponse')
+            ->willReturn($methodOverrides['processResponse'] ?? true);
+        $auth
+            ->method('processSLO')
+            ->willReturn($methodOverrides['processSLO'] ?? null);
+        $auth
+            ->method('login')
+            ->willReturn($methodOverrides['login'] ?? redirect($loginUrl));
+        $auth
+            ->method('logout')
+            ->willReturn($methodOverrides['logout'] ?? redirect($logoutUrl));
         $auth->method('getNameId')->willReturn('user@domain.tld');
-        $auth->method('getNameIdFormat')->willReturn('urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress');
-        $auth->method('isAuthenticated')->willReturn(true);
-        $auth->method('getSessionIndex')->willReturn('FOOLIBRARY_a8a10b0fa413341868046c7fe13244f812ae5874');
-        $auth->method('getSessionExpiration')->willReturn(Carbon::now()->addHours(72)->toISOString());
-        $auth->method('getErrors')->willReturn([]);
-        $auth->method('getLastErrorReason')->willReturn(null);
-        $auth->method('getLastRequestID')->willReturn(null);
-        $auth->method('getLastRequestXML')->willReturn(null);
-        $auth->method('getLastResponseXML')->willReturn(file_get_contents(app_path('../../../../../tests/fixtures/SAMLResponse')));
-        $auth->method('getAttributes')->willReturn([
-            'first_name' => [
-                'Foo'
-            ],
-            'last_name' => [
-                'Bar'
-            ],
-        ]);
-        $auth->method('getAttributesWithFriendlyName')->willReturn([]);
+        $auth
+            ->method('getNameIdFormat')
+            ->willReturn(
+                $methodOverrides['getNameIdFormat'] ??
+                    'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'
+            );
+        $auth
+            ->method('isAuthenticated')
+            ->willReturn($methodOverrides['isAuthenticated'] ?? true);
+        $auth
+            ->method('getSessionIndex')
+            ->willReturn(
+                $methodOverrides['getSessionIndex'] ??
+                    'FOOLIBRARY_a8a10b0fa413341868046c7fe13244f812ae5874'
+            );
+        $auth->method('getSessionExpiration')->willReturn(
+            $methodOverrides['getSessionExpiration'] ??
+                Carbon::now()
+                    ->addHours(72)
+                    ->toISOString()
+        );
+        $auth
+            ->method('getErrors')
+            ->willReturn($methodOverrides['getErrors'] ?? []);
+        $auth
+            ->method('getLastErrorReason')
+            ->willReturn($methodOverrides['getLastErrorReason'] ?? null);
+        $auth
+            ->method('getLastRequestID')
+            ->willReturn($methodOverrides['getLastRequestID'] ?? null);
+        $auth
+            ->method('getLastRequestXML')
+            ->willReturn($methodOverrides['getLastRequestXML'] ?? null);
+        $auth
+            ->method('getLastResponseXML')
+            ->willReturn(
+                $methodOverrides['getLastResponseXML'] ??
+                    file_get_contents(
+                        app_path('../../../../../tests/fixtures/SAMLResponse')
+                    )
+            );
+        $auth->method('getAttributes')->willReturn(
+            $methodOverrides['getAttributes'] ?? [
+                'first_name' => ['Foo'],
+                'last_name' => ['Bar']
+            ]
+        );
+        $auth
+            ->method('getAttributesWithFriendlyName')
+            ->willReturn(
+                $methodOverrides['getAttributesWithFriendlyName'] ?? []
+            );
         return $auth;
     }
 
     protected function createDriver()
     {
         $auth = $this->createAuthMock();
+        return new Saml2($auth);
+    }
+
+    protected function createDriverWithBadUserResponse()
+    {
+        $auth = $this->createAuthMock([
+            'getErrors' => ['invalid_response'],
+            'getLastErrorReason' =>
+                "Invalid audience for this Response (expected 'http://saml.test/auth/saml/', got 'http://saml.test/auth/saml"
+        ]);
         return new Saml2($auth);
     }
 
@@ -113,9 +169,22 @@ class Saml2Test extends TestCase
         $driver = $this->createDriver();
         $user = $driver->user();
         $this->assertEquals($user->getNameId(), 'user@domain.tld');
-        $this->assertEquals($user->getNameIdFormat(), 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress');
-        $this->assertEquals($user->getSessionIndex(), 'FOOLIBRARY_a8a10b0fa413341868046c7fe13244f812ae5874');
+        $this->assertEquals(
+            $user->getNameIdFormat(),
+            'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'
+        );
+        $this->assertEquals(
+            $user->getSessionIndex(),
+            'FOOLIBRARY_a8a10b0fa413341868046c7fe13244f812ae5874'
+        );
         $this->assertEquals($user->getAttributes()['first_name'][0], 'Foo');
+    }
+
+    public function testUserWithBadProcessing()
+    {
+        $this->expectException(ProcessingResponseFailedException::class);
+        $driver = $this->createDriverWithBadUserResponse();
+        $user = $driver->user();
     }
 
     public function testMetadata()
@@ -126,6 +195,9 @@ class Saml2Test extends TestCase
         $xml->loadXML($metadata);
         $keys = $xml->getElementsByTagName('AssertionConsumerService');
         $this->assertEquals(count($keys), 1);
-        $this->assertEquals($keys->item(0)->getAttribute('Location'), 'http://saml.test/sso/saml2/acs');
+        $this->assertEquals(
+            $keys->item(0)->getAttribute('Location'),
+            'http://saml.test/sso/saml2/acs'
+        );
     }
 }
