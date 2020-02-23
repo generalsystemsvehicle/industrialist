@@ -19,20 +19,16 @@ class Settings
     {
         $industrialist_settings = config('industrialist');
         $idp_config_path = "industrialist.identity_providers.{$idpKey}";
-        $idp_settings = config($idp_config_path);
+        $idp_settings = config($idp_config_path . '.idp');
+        $sp_settings = config($idp_config_path . '.sp');
 
         if (!$idp_settings) {
             throw new BadIdentityProviderKeyException();
         }
 
         $industrialist_settings['idp'] = $idp_settings;
-
-        if ($idp_sp_settings = config($idp_config_path . '.sp')) {
-            $industrialist_settings['sp'] = array_replace_recursive(
-                $industrialist_settings['sp'],
-                $idp_sp_settings
-            );
-        }
+        $industrialist_settings['sp'] = $sp_settings;
+        unset($industrialist_settings['identity_providers']);
 
         return $industrialist_settings;
     }
