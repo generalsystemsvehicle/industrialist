@@ -1,17 +1,17 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Tests\Drivers;
+namespace GeneralSystemsVehicle\Industrialist\Tests\Drivers;
 
 use Carbon\Carbon;
 use DOMDocument;
 use OneLogin\Saml2\Utils as OneLogin_Saml2_Utils;
 use Orchestra\Testbench\TestCase;
-use Riverbedlab\Industrialist\Drivers\Saml2;
-use Riverbedlab\Industrialist\Exceptions\BadIdentityProviderKeyException;
-use Riverbedlab\Industrialist\Exceptions\ProcessingResponseFailedException;
-use Riverbedlab\Industrialist\Lib\OneLoginAuth;
-use Riverbedlab\Industrialist\Lib\Settings;
-use Riverbedlab\Industrialist\Providers\ServiceProvider;
+use GeneralSystemsVehicle\Industrialist\Drivers\Saml2;
+use GeneralSystemsVehicle\Industrialist\Exceptions\BadIdentityProviderKeyException;
+use GeneralSystemsVehicle\Industrialist\Exceptions\ProcessingResponseFailedException;
+use GeneralSystemsVehicle\Industrialist\Lib\OneLoginAuth;
+use GeneralSystemsVehicle\Industrialist\Lib\Settings;
+use GeneralSystemsVehicle\Industrialist\Providers\ServiceProvider;
 
 class Saml2Test extends TestCase
 {

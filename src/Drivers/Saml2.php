@@ -1,13 +1,13 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Drivers;
+namespace GeneralSystemsVehicle\Industrialist\Drivers;
 
-use Riverbedlab\Industrialist\Contracts\Auth;
-use Riverbedlab\Industrialist\Contracts\Driver;
-use Riverbedlab\Industrialist\Exceptions\ProcessingResponseFailedException;
-use Riverbedlab\Industrialist\Lib\OneLoginAuth;
-use Riverbedlab\Industrialist\Lib\Settings;
-use Riverbedlab\Industrialist\Models\User;
+use GeneralSystemsVehicle\Industrialist\Contracts\Auth;
+use GeneralSystemsVehicle\Industrialist\Contracts\Driver;
+use GeneralSystemsVehicle\Industrialist\Exceptions\ProcessingResponseFailedException;
+use GeneralSystemsVehicle\Industrialist\Lib\OneLoginAuth;
+use GeneralSystemsVehicle\Industrialist\Lib\Settings;
+use GeneralSystemsVehicle\Industrialist\Models\User;
 
 class Saml2 implements Driver
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Providers;
+namespace GeneralSystemsVehicle\Industrialist\Providers;
 
-use Riverbedlab\Industrialist\Routing\Console\ControllerMakeCommand;
-use Riverbedlab\Industrialist\Industrialist;
-use Riverbedlab\Industrialist\Traits\MergeRecursiveConfigFrom;
+use GeneralSystemsVehicle\Industrialist\Routing\Console\ControllerMakeCommand;
+use GeneralSystemsVehicle\Industrialist\Industrialist;
+use GeneralSystemsVehicle\Industrialist\Traits\MergeRecursiveConfigFrom;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Tests\Models;
+namespace GeneralSystemsVehicle\Industrialist\Tests\Models;
 
 
 use ReflectionClass;
@@ -8,7 +8,7 @@ use ReflectionClass;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase;
-use Riverbedlab\Industrialist\Routing\Console\ControllerMakeCommand as Command;
+use GeneralSystemsVehicle\Industrialist\Routing\Console\ControllerMakeCommand as Command;
 
 class ControllerMakeCommand extends TestCase
 {

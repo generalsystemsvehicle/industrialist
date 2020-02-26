@@ -1,11 +1,11 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Tests;
+namespace GeneralSystemsVehicle\Industrialist\Tests;
 
-use Riverbedlab\Industrialist\Drivers\Saml2;
-use Riverbedlab\Industrialist\Exceptions\BadIdentityProviderKeyException;
-use Riverbedlab\Industrialist\Facades\Industrialist as IndustrialistFacade;
-use Riverbedlab\Industrialist\Providers\ServiceProvider;
+use GeneralSystemsVehicle\Industrialist\Drivers\Saml2;
+use GeneralSystemsVehicle\Industrialist\Exceptions\BadIdentityProviderKeyException;
+use GeneralSystemsVehicle\Industrialist\Facades\Industrialist as IndustrialistFacade;
+use GeneralSystemsVehicle\Industrialist\Providers\ServiceProvider;
 use Orchestra\Testbench\TestCase;
 
 class Industrialist extends TestCase

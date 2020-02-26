@@ -1,9 +1,9 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Drivers;
+namespace GeneralSystemsVehicle\Industrialist\Drivers;
 
-use Riverbedlab\Industrialist\Contracts\Auth;
-use Riverbedlab\Industrialist\Contracts\Driver;
+use GeneralSystemsVehicle\Industrialist\Contracts\Auth;
+use GeneralSystemsVehicle\Industrialist\Contracts\Driver;
 
 abstract class AbstractDriver implements Driver
 {

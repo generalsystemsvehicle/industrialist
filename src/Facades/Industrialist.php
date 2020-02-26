@@ -1,6 +1,6 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Facades;
+namespace GeneralSystemsVehicle\Industrialist\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

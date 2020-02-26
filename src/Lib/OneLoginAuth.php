@@ -1,10 +1,10 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Lib;
+namespace GeneralSystemsVehicle\Industrialist\Lib;
 
 use OneLogin\Saml2\Auth as OneLogin_Saml2_Auth;
-use Riverbedlab\Industrialist\Contracts\Auth;
-use Riverbedlab\Industrialist\Contracts\Driver;
+use GeneralSystemsVehicle\Industrialist\Contracts\Auth;
+use GeneralSystemsVehicle\Industrialist\Contracts\Driver;
 
 class OneLoginAuth extends OneLogin_Saml2_Auth implements Auth
 {

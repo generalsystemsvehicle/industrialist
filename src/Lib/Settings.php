@@ -1,8 +1,8 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Lib;
+namespace GeneralSystemsVehicle\Industrialist\Lib;
 
-use Riverbedlab\Industrialist\Exceptions\BadIdentityProviderKeyException;
+use GeneralSystemsVehicle\Industrialist\Exceptions\BadIdentityProviderKeyException;
 
 class Settings
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Models;
+namespace GeneralSystemsVehicle\Industrialist\Models;
 
-use Riverbedlab\Industrialist\Models\AbstractStatelessModel as Model;
+use GeneralSystemsVehicle\Industrialist\Models\AbstractStatelessModel as Model;
 
 /**
  * A model of the expected user object returned by Driver implmentations

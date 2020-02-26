@@ -1,6 +1,6 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Exceptions;
+namespace GeneralSystemsVehicle\Industrialist\Exceptions;
 
 use Exception;
 

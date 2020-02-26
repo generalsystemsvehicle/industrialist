@@ -1,11 +1,11 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Models;
+namespace GeneralSystemsVehicle\Industrialist\Models;
 
 use Str;
 use Illuminate\Contracts\Support\Arrayable;
-use Riverbedlab\Industrialist\Exceptions\AttributeNotFoundException;
-use Riverbedlab\Industrialist\Exceptions\MethodNotFoundException;
+use GeneralSystemsVehicle\Industrialist\Exceptions\AttributeNotFoundException;
+use GeneralSystemsVehicle\Industrialist\Exceptions\MethodNotFoundException;
 
 abstract class AbstractStatelessModel implements Arrayable
 {

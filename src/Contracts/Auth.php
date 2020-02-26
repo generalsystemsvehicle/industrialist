@@ -1,6 +1,6 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Contracts;
+namespace GeneralSystemsVehicle\Industrialist\Contracts;
 
 interface Auth
 {

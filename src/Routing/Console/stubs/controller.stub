@@ -4,7 +4,7 @@ namespace DummyNamespace;
 
 use DummyRootNamespaceHttp\Controllers\Controller;
 use Illuminate\Http\Request;
-use Riverbedlab\Industrialist\Facades\Industrialist;
+use GeneralSystemsVehicle\Industrialist\Facades\Industrialist;
 
 /**
  * Basic sample SAML SP controller, will require addiitonal logic to integrate

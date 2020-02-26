@@ -1,6 +1,6 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Routing\Console;
+namespace GeneralSystemsVehicle\Industrialist\Routing\Console;
 
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Str;

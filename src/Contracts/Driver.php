@@ -1,10 +1,10 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Contracts;
+namespace GeneralSystemsVehicle\Industrialist\Contracts;
 
 use OneLogin\Saml2\Utils as OneLogin_Saml2_Utils;
 use OneLogin\Saml2\Error as OneLogin_Saml2_Error;
-use Riverbedlab\Industrialist\Models\User;
+use GeneralSystemsVehicle\Industrialist\Models\User;
 
 interface Driver
 {

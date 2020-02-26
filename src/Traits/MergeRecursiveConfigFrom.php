@@ -1,6 +1,6 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Traits;
+namespace GeneralSystemsVehicle\Industrialist\Traits;
 
 use Arr;
 

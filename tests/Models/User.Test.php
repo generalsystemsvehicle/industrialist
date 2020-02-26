@@ -1,12 +1,12 @@
 <?php
 
-namespace Riverbedlab\Industrialist\Tests\Models;
+namespace GeneralSystemsVehicle\Industrialist\Tests\Models;
 
 
 use Orchestra\Testbench\TestCase;
-use Riverbedlab\Industrialist\Models\User as UserModel;
-use Riverbedlab\Industrialist\Exceptions\AttributeNotFoundException;
-use Riverbedlab\Industrialist\Exceptions\MethodNotFoundException;
+use GeneralSystemsVehicle\Industrialist\Models\User as UserModel;
+use GeneralSystemsVehicle\Industrialist\Exceptions\AttributeNotFoundException;
+use GeneralSystemsVehicle\Industrialist\Exceptions\MethodNotFoundException;
 
 class User extends TestCase
 {

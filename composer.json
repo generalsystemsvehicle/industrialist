@@ -1,5 +1,5 @@
 {
-  "name": "riverbedlab/industrialist",
+  "name": "GeneralSystemsVehicle/industrialist",
   "description": "A SAML2 Service Provide for Laravel 6",
   "license": "MIT",
   "keywords": [
@@ -28,12 +28,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Riverbedlab\\Industrialist\\": "src"
+      "GeneralSystemsVehicle\\Industrialist\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Riverbedlab\\Industrialist\\Tests\\": "tests"
+      "GeneralSystemsVehicle\\Industrialist\\Tests\\": "tests"
     }
   },
   "scripts": {
@@ -55,10 +55,10 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Riverbedlab\\Industrialist\\Providers\\ServiceProvider"
+        "GeneralSystemsVehicle\\Industrialist\\Providers\\ServiceProvider"
       ],
       "aliases": {
-        "Industrialist": "Riverbedlab\\Industrialist\\Facades\\Industrialist"
+        "Industrialist": "GeneralSystemsVehicle\\Industrialist\\Facades\\Industrialist"
       }
     }
   },

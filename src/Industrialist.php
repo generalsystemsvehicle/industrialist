@@ -1,9 +1,9 @@
 <?php
 
-namespace Riverbedlab\Industrialist;
+namespace GeneralSystemsVehicle\Industrialist;
 
-use Riverbedlab\Industrialist\Drivers\Saml2;
-use Riverbedlab\Industrialist\Contracts\Driver;
+use GeneralSystemsVehicle\Industrialist\Drivers\Saml2;
+use GeneralSystemsVehicle\Industrialist\Contracts\Driver;
 
 class Industrialist
 {
