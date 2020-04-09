@@ -9,6 +9,9 @@ use GeneralSystemsVehicle\Industrialist\Exceptions\MethodNotFoundException;
 
 abstract class AbstractStatelessModel implements Arrayable
 {
+    /**
+     * @var array
+     */
     protected $attributes = [];
 
     /**

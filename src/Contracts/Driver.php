@@ -19,6 +19,8 @@ interface Driver
 
     /**
      * Initiates the drivers logout process
+     *
+     * @return string|null
      */
     public function logout();
 

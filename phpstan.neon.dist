@@ -2,8 +2,8 @@ includes:
     - ./vendor/nunomaduro/larastan/extension.neon
 parameters:
     level: max
+    checkMissingIterableValueType: false
     ignoreErrors:
-        - '#Cannot call method get() on Illuminate\Config\Repository|null\.#'
-        - '#Cannot call method set() on Illuminate\Config\Repository|null\.#'
+        - '#Call to an undefined method GeneralSystemsVehicle\\Industrialist\\Contracts\\Auth::[a-zA-Z0-9\\_]+\(\)#'
     paths:
         - src

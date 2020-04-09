@@ -11,6 +11,9 @@ use GeneralSystemsVehicle\Industrialist\Models\User;
 
 class Saml2 implements Driver
 {
+    /**
+     * @var Auth
+     */
     protected $auth;
 
     /**
@@ -19,7 +22,7 @@ class Saml2 implements Driver
      * @param Auth $auth A configured auth instance setup for the desired IdP
      *
      */
-    public function __construct(Auth $auth)
+    final public function __construct(Auth $auth)
     {
         $this->auth = $auth;
     }
@@ -41,6 +44,7 @@ class Saml2 implements Driver
     /**
      * Redirects to the Identity Providers logout endpoint
      *
+     * @return  string|null
      */
     public function logout()
     {

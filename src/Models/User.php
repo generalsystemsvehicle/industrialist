@@ -6,7 +6,6 @@ use GeneralSystemsVehicle\Industrialist\Models\AbstractStatelessModel as Model;
 
 /**
  * A model of the expected user object returned by Driver implmentations
- *
  * @method ?string getNameId()
  * @method ?string setNameId(?string $value)
  * @method ?string getNameIdFormat()
@@ -34,6 +33,9 @@ use GeneralSystemsVehicle\Industrialist\Models\AbstractStatelessModel as Model;
  */
 class User extends Model
 {
+    /**
+     * @var array
+     */
     protected $attributes = [
         'name_id' => null,
         'name_id_format' => null,

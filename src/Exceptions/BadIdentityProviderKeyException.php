@@ -6,5 +6,8 @@ use Exception;
 
 class BadIdentityProviderKeyException extends Exception
 {
+    /**
+     * @var string
+     */
     protected $message = 'The identity provider key is not found in the config.';
 }
