@@ -21,9 +21,9 @@
     "onelogin/php-saml": "^3.3.0"
   },
   "require-dev": {
-    "nunomaduro/larastan": "^0.5.5",
-    "orchestra/testbench": "^4.2",
-    "phpunit/phpunit": "^8.0",
+    "nunomaduro/larastan": "^0.6.2",
+    "orchestra/testbench": "^5.3",
+    "phpunit/phpunit": "^8.5",
     "rregeer/phpunit-coverage-check": "^0.3.1"
   },
   "autoload": {
