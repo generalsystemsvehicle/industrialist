@@ -1,6 +1,6 @@
 {
   "name": "generalsystemsvehicle/industrialist",
-  "description": "A SAML2 Service Provider for Laravel 6",
+  "description": "A SAML2 Service Provider for Laravel",
   "license": "MIT",
   "keywords": [
     "saml2",
