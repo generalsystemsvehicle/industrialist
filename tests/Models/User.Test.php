@@ -3,7 +3,7 @@
 namespace GeneralSystemsVehicle\Industrialist\Tests\Models;
 
 
-use Orchestra\Testbench\TestCase;
+use GeneralSystemsVehicle\Industrialist\Tests\Industrialist as TestCase;
 use GeneralSystemsVehicle\Industrialist\Models\User as UserModel;
 use GeneralSystemsVehicle\Industrialist\Exceptions\AttributeNotFoundException;
 use GeneralSystemsVehicle\Industrialist\Exceptions\MethodNotFoundException;
