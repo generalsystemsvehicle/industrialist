@@ -8,7 +8,7 @@
 [![Packagist](https://poser.pugx.org/generalsystemsvehicle/industrialist/d/total.svg)](https://packagist.org/packages/generalsystemsvehicle/industrialist)
 [![Packagist](https://img.shields.io/packagist/l/generalsystemsvehicle/industrialist.svg)](https://packagist.org/packages/generalsystemsvehicle/industrialist)
 
-A SAML2 Service Provider package for Laravel 6
+A SAML2 Service Provider package for Laravel
 
 ## Installation
 
