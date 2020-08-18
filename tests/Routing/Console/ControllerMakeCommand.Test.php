@@ -6,8 +6,7 @@ namespace GeneralSystemsVehicle\Industrialist\Tests\Models;
 use ReflectionClass;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\Application;
-use Orchestra\Testbench\TestCase;
+use GeneralSystemsVehicle\Industrialist\Tests\Industrialist as TestCase;
 use GeneralSystemsVehicle\Industrialist\Routing\Console\ControllerMakeCommand as Command;
 
 class ControllerMakeCommand extends TestCase
@@ -48,9 +47,8 @@ class ControllerMakeCommand extends TestCase
 
     public function testBuildClass()
     {
-       $app = $this->createMock(Application::class);
        $obj = $this->getCommandObject();
-       $obj->setLaravel($app);
+       $obj->setLaravel($this->app);
        $ns = $this->callProtected('buildClass', ['DummyRootNamespaceHttp\Controllers\Controller'], $obj);
        $this->assertEquals($ns, '');
     }
