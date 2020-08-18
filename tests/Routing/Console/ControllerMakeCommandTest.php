@@ -1,15 +1,15 @@
 <?php
 
-namespace GeneralSystemsVehicle\Industrialist\Tests\Models;
+namespace GeneralSystemsVehicle\Industrialist\Tests\Routing\Console;
 
 
 use ReflectionClass;
 
 use Illuminate\Filesystem\Filesystem;
-use GeneralSystemsVehicle\Industrialist\Tests\Industrialist as TestCase;
+use GeneralSystemsVehicle\Industrialist\Tests\TestCase;
 use GeneralSystemsVehicle\Industrialist\Routing\Console\ControllerMakeCommand as Command;
 
-class ControllerMakeCommand extends TestCase
+class ControllerMakeCommandTest extends TestCase
 {
     public function getCommandObject()
     {

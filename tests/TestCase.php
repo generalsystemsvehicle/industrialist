@@ -6,9 +6,9 @@ use GeneralSystemsVehicle\Industrialist\Drivers\Saml2;
 use GeneralSystemsVehicle\Industrialist\Exceptions\BadIdentityProviderKeyException;
 use GeneralSystemsVehicle\Industrialist\Facades\Industrialist as IndustrialistFacade;
 use GeneralSystemsVehicle\Industrialist\Providers\ServiceProvider;
-use Orchestra\Testbench\TestCase;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-class Industrialist extends TestCase
+class TestCase extends OrchestraTestCase
 {
     /**
      * Define environment setup.

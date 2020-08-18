@@ -3,12 +3,12 @@
 namespace GeneralSystemsVehicle\Industrialist\Tests\Models;
 
 
-use GeneralSystemsVehicle\Industrialist\Tests\Industrialist as TestCase;
+use GeneralSystemsVehicle\Industrialist\Tests\TestCase;
 use GeneralSystemsVehicle\Industrialist\Models\User as UserModel;
 use GeneralSystemsVehicle\Industrialist\Exceptions\AttributeNotFoundException;
 use GeneralSystemsVehicle\Industrialist\Exceptions\MethodNotFoundException;
 
-class User extends TestCase
+class UserTest extends TestCase
 {
     public function testSetAndGetGoodKey()
     {

@@ -5,7 +5,7 @@ namespace GeneralSystemsVehicle\Industrialist\Tests\Drivers;
 use Carbon\Carbon;
 use DOMDocument;
 use OneLogin\Saml2\Utils as OneLogin_Saml2_Utils;
-use GeneralSystemsVehicle\Industrialist\Tests\Industrialist as TestCase;
+use GeneralSystemsVehicle\Industrialist\Tests\TestCase;
 use GeneralSystemsVehicle\Industrialist\Drivers\Saml2;
 use GeneralSystemsVehicle\Industrialist\Exceptions\BadIdentityProviderKeyException;
 use GeneralSystemsVehicle\Industrialist\Exceptions\ProcessingResponseFailedException;
