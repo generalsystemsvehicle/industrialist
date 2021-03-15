@@ -34,5 +34,4 @@ instead of using the issue tracker.
 
 ## Credits
 
-- [](https://github.com/generalsystemsvehicle/industrialist)
 - [All contributors](https://github.com/generalsystemsvehicle/industrialist/graphs/contributors)
