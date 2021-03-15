@@ -54,7 +54,7 @@ return [
                     'responseUrl' => ''
                 ],
                 // Public x509 certificate of the IdP
-                'x509cert' => ''
+                'x509cert' => 'TestKey'
             ]
         ]
     ]
