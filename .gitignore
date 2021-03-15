@@ -1,7 +1,7 @@
-/vendor
-/.idea
-/node_modules
-/composer.lock
-/.phpunit.result.cache
-clover.xml
 .coverage-report
+.phpunit
+.phpunit.result.cache
+composer.lock
+clover.xml
+node_modules
+vendor
