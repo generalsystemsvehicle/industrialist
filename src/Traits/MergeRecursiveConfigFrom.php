@@ -16,10 +16,10 @@ trait MergeRecursiveConfigFrom
     protected function mergeRecursiveConfigFrom($path, $key)
     {
         if (!$this->app->configurationIsCached()) {
-            $config = $this->app['config']->get($key, []);
+            $config = (array) config($key, []);
             $merging = require $path;
             $merged = array_replace_recursive($merging, $config);
-            $this->app['config']->set($key, $merged);
+            config([$key => $merged]);
         }
     }
 }

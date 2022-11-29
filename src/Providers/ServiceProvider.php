@@ -30,7 +30,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             'config'
         );
 
-        foreach (config('industrialist.identity_providers', []) as $key => $idp) {
+        foreach ((array) config('industrialist.identity_providers', []) as $key => $idp) {
             $this->mergeRecursiveConfigFrom(
                 self::IDP_CONFIG_PATH,
                 'industrialist.identity_providers.' . $key . '.settings'

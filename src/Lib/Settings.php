@@ -17,7 +17,7 @@ class Settings
      */
     public static function create(string $idpKey): array
     {
-        $industrialist_settings = config('industrialist');
+        $industrialist_settings = (array) config('industrialist');
         $idp_config_path = "industrialist.identity_providers.{$idpKey}";
         $idp_settings = config($idp_config_path . '.idp');
         $sp_settings = config($idp_config_path . '.sp');
