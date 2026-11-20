@@ -13,6 +13,10 @@
     {
       "name": "Lee Hilton",
       "email": "lee.hilton@riverbed.com"
+    },
+    {
+      "name": "Brian Wells",
+      "email": "wells@users.noreply.github.com"
     }
   ],
   "require": {
