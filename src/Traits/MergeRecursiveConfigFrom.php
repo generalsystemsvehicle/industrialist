@@ -17,7 +17,7 @@ trait MergeRecursiveConfigFrom
     {
         if (!$this->app->configurationIsCached()) {
             $config = (array) config($key, []);
-            $merging = require $path;
+            $merging = (array) require $path;
             $merged = array_replace_recursive($merging, $config);
             config([$key => $merged]);
         }
