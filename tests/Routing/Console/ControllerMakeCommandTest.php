@@ -2,7 +2,7 @@
 
 namespace GeneralSystemsVehicle\Industrialist\Tests\Routing\Console;
 
-
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use ReflectionClass;
 
 use Illuminate\Filesystem\Filesystem;
@@ -33,18 +33,21 @@ class ControllerMakeCommandTest extends TestCase
         return $method->invokeArgs($commandObject, $params);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetStub()
     {
         $stub = $this->callProtected('getStub');
         $this->assertFileExists($stub);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetDefaultNamespace()
     {
         $ns = $this->callProtected('getDefaultNamespace', ['FooBert']);
         $this->assertEquals($ns, 'FooBert\Http\Controllers');
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testBuildClass()
     {
        $obj = $this->getCommandObject();
