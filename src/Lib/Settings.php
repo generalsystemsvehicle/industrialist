@@ -11,12 +11,13 @@ class Settings
      *
      * @param string $idpKey The array key of the Identity Provider you wish to use from the config file.
      *
-     * @return Array
+     * @return array<string, mixed>
      *
      * @throws BadIdentityProviderKeyException
      */
     public static function create(string $idpKey): array
     {
+        /** @var array<string, mixed> $industrialist_settings */
         $industrialist_settings = (array) config('industrialist');
         $idp_config_path = "industrialist.identity_providers.{$idpKey}";
         $idp_settings = config($idp_config_path . '.idp');
