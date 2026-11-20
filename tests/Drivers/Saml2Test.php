@@ -5,6 +5,7 @@ namespace GeneralSystemsVehicle\Industrialist\Tests\Drivers;
 use Carbon\Carbon;
 use DOMDocument;
 use OneLogin\Saml2\Utils as OneLogin_Saml2_Utils;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use GeneralSystemsVehicle\Industrialist\Tests\TestCase;
 use GeneralSystemsVehicle\Industrialist\Drivers\Saml2;
 use GeneralSystemsVehicle\Industrialist\Exceptions\BadIdentityProviderKeyException;
@@ -137,6 +138,7 @@ class Saml2Test extends TestCase
         $this->assertEquals($driver instanceof Saml2, true);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testRedirect()
     {
         $settings = Settings::create('my_idp_key');
@@ -147,6 +149,7 @@ class Saml2Test extends TestCase
         $this->assertStringContainsString($url, $response);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testLogout()
     {
         $settings = Settings::create('my_idp_key');
@@ -157,6 +160,7 @@ class Saml2Test extends TestCase
         $this->assertStringContainsString($url, $response);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testProcessLogout()
     {
         $driver = $this->createDriver();
@@ -164,6 +168,7 @@ class Saml2Test extends TestCase
         $this->assertEquals($logout, null);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testUser()
     {
         $driver = $this->createDriver();
@@ -180,6 +185,7 @@ class Saml2Test extends TestCase
         $this->assertEquals($user->getAttributes()['first_name'][0], 'Foo');
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testUserWithBadProcessing()
     {
         $this->expectException(ProcessingResponseFailedException::class);
