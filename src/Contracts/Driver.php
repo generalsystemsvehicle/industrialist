@@ -56,7 +56,7 @@ interface Driver
      * Start a driver login, redirecting to the authority configured on this instance.
      *
      * @param string|null $returnTo The target URL the user should be returned to after login.
-     * @param array $parameters Extra parameters to be added to the GET
+     * @param array<string, mixed> $parameters Extra parameters to be added to the GET
      * @param bool $forceAuthn When true the AuthNRequest will set the ForceAuthn='true'
      * @param bool $isPassive When true the AuthNRequest will set the Ispassive='true'
      * @param bool $stay True if we want to stay (returns the url string) False to redirect
