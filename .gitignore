@@ -1,7 +1,7 @@
-.coverage-report
-.phpunit
 .phpunit.result.cache
+/.coverage-report
+/.phpunit.cache
+/node_modules
+/vendor
 composer.lock
 clover.xml
-node_modules
-vendor
