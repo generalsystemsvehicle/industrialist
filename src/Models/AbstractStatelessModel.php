@@ -7,10 +7,13 @@ use Illuminate\Contracts\Support\Arrayable;
 use GeneralSystemsVehicle\Industrialist\Exceptions\AttributeNotFoundException;
 use GeneralSystemsVehicle\Industrialist\Exceptions\MethodNotFoundException;
 
+/**
+ * @implements Arrayable<string, mixed>
+ */
 abstract class AbstractStatelessModel implements Arrayable
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     protected $attributes = [];
 
@@ -18,7 +21,7 @@ abstract class AbstractStatelessModel implements Arrayable
      * Magic method used to create getter and setter functions. For example, setMyAttribute or getMyAttribute.
      *
      * @param string $name The function name being request, eg: getMyAttribute or setMyAttribute
-     * @param array $params Any value to assign when the method called is a setter
+     * @param array<int, mixed> $params Any value to assign when the method called is a setter
      *
      * @return mixed the value of the attribute regardless of getter/setter if the attribute is found
      *
@@ -61,7 +64,7 @@ abstract class AbstractStatelessModel implements Arrayable
     /**
      * Get the instance as an array. Satisfies Arrayable contract.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray()
     {
