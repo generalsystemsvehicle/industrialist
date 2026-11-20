@@ -14,10 +14,10 @@ use GeneralSystemsVehicle\Industrialist\Models\AbstractStatelessModel as Model;
  * @method bool setIsAuthenticated(bool $value)
  * @method ?string getSessionIndex()
  * @method ?string setSessionIndex(?string $value)
- * @method ?string getSessionExpiration()
+ * @method ?int getSessionExpiration()
  * @method ?int setSessionExpiration(?int $value)
- * @method ?array getErrors()
- * @method ?array setErrors(?array $value)
+ * @method array<string, mixed>|null getErrors()
+ * @method array<string, mixed>|null setErrors(array<string, mixed>|null $value)
  * @method ?string getLastRequestId()
  * @method ?string setLastRequestId(?string $value)
  * @method ?string getErrorReason()
@@ -26,15 +26,15 @@ use GeneralSystemsVehicle\Industrialist\Models\AbstractStatelessModel as Model;
  * @method ?string setLastResponse(?string $value)
  * @method ?string getLastRequest()
  * @method ?string setLastRequest(?string $value)
- * @method ?array getAttributes()
- * @method ?arrat setAttributes(?array $value)
- * @method ?array setAttributesWithFriendlyName()
- * @method ?array setAttributesWithFriendlyName(?array $value)
+ * @method array<string, mixed>|null getAttributes()
+ * @method array<string, mixed>|null setAttributes(array<string, mixed>|null $value)
+ * @method array<string, mixed>|null getAttributesWithFriendlyName()
+ * @method array<string, mixed>|null setAttributesWithFriendlyName(array<string, mixed>|null $value)
  */
 class User extends Model
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     protected $attributes = [
         'name_id' => null,
