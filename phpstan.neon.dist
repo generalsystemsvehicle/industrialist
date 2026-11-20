@@ -1,10 +1,8 @@
 includes:
-    - ./vendor/nunomaduro/larastan/extension.neon
+    - ./vendor/larastan/larastan/extension.neon
 parameters:
     level: max
-    checkGenericClassInNonGenericObjectType: false
-    checkMissingIterableValueType: false
-    ignoreErrors:
-        - '#Call to an undefined method GeneralSystemsVehicle\\Industrialist\\Contracts\\Auth::[a-zA-Z0-9\\_]+\(\)#'
+    bootstrapFiles:
+        - phpstan-bootstrap.php
     paths:
         - src
