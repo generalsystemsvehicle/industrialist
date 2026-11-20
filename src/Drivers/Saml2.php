@@ -78,21 +78,22 @@ class Saml2 implements Driver
         bool $retrieveParametersFromServer = false,
         ?callable $cbDeleteSession = null,
         bool $stay = false
-    ) {
-        return $this->auth->processSLO(
+    ): ?string {
+        $result = $this->auth->processSLO(
             $keepLocalSession,
             $requestId,
             $retrieveParametersFromServer,
             $cbDeleteSession,
             $stay
         );
+        return is_string($result) ? $result : null;
     }
 
     /**
      * Start a saml2 login, redirecting to the IdP configured on this instance.
      *
      * @param string|null $returnTo The target URL the user should be returned to after login.
-     * @param array $parameters Extra parameters to be added to the GET
+     * @param array<string, mixed> $parameters Extra parameters to be added to the GET
      * @param bool $forceAuthn When true the AuthNRequest will set the ForceAuthn='true'
      * @param bool $isPassive When true the AuthNRequest will set the Ispassive='true'
      * @param bool $stay True if we want to stay (returns the url string) False to redirect
@@ -131,27 +132,51 @@ class Saml2 implements Driver
     {
         $this->auth->processResponse();
 
-        if (count($this->auth->getErrors()) !== 0) {
-            throw new ProcessingResponseFailedException(
-                $this->auth->getLastErrorReason()
-            );
+        $errors = $this->auth->getErrors();
+        if (count((array) $errors) !== 0) {
+            $lastError = $this->auth->getLastErrorReason();
+            $errorMessage = '';
+            if (is_string($lastError)) {
+                $errorMessage = $lastError;
+            }
+            throw new ProcessingResponseFailedException($errorMessage);
         }
 
         $user = new User();
-        $user->setNameId($this->auth->getNameId());
-        $user->setNameIdFormat($this->auth->getNameIdFormat());
-        $user->setIsAuthenticated($this->auth->isAuthenticated());
-        $user->setSessionIndex($this->auth->getSessionIndex());
-        $user->setSessionExpiration($this->auth->getSessionExpiration());
-        $user->setErrors($this->auth->getErrors());
-        $user->setErrorReason($this->auth->getLastErrorReason());
-        $user->setLastRequestId($this->auth->getLastRequestID());
-        $user->setLastRequest($this->auth->getLastRequestXML());
-        $user->setLastResponse($this->auth->getLastResponseXML());
-        $user->setAttributes($this->auth->getAttributes());
-        $user->setAttributesWithFriendlyName(
-            $this->auth->getAttributesWithFriendlyName()
-        );
+        
+        $nameId = $this->auth->getNameId();
+        $user->setNameId(is_string($nameId) ? $nameId : null);
+        
+        $nameIdFormat = $this->auth->getNameIdFormat();
+        $user->setNameIdFormat(is_string($nameIdFormat) ? $nameIdFormat : null);
+        
+        $user->setIsAuthenticated((bool) $this->auth->isAuthenticated());
+        
+        $sessionIndex = $this->auth->getSessionIndex();
+        $user->setSessionIndex(is_string($sessionIndex) ? $sessionIndex : null);
+        
+        $sessionExpiration = $this->auth->getSessionExpiration();
+        $user->setSessionExpiration(is_int($sessionExpiration) ? $sessionExpiration : null);
+        
+        $user->setErrors((array) $errors);
+        
+        $errorReason = $this->auth->getLastErrorReason();
+        $user->setErrorReason(is_string($errorReason) ? $errorReason : null);
+        
+        $lastRequestId = $this->auth->getLastRequestID();
+        $user->setLastRequestId(is_string($lastRequestId) ? $lastRequestId : null);
+        
+        $lastRequest = $this->auth->getLastRequestXML();
+        $user->setLastRequest(is_string($lastRequest) ? $lastRequest : null);
+        
+        $lastResponse = $this->auth->getLastResponseXML();
+        $user->setLastResponse(is_string($lastResponse) ? $lastResponse : null);
+        
+        $attributes = $this->auth->getAttributes();
+        $user->setAttributes($attributes);
+        
+        $attributesWithFriendlyName = $this->auth->getAttributesWithFriendlyName();
+        $user->setAttributesWithFriendlyName($attributesWithFriendlyName);
 
         return $user;
     }
