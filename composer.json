@@ -16,14 +16,14 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
-    "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+    "php": "^8.3",
+    "illuminate/support": "^12.0|^13.0",
     "onelogin/php-saml": "^4.0"
   },
   "require-dev": {
-    "nunomaduro/larastan": "^2.0",
-    "orchestra/testbench": "^7.5",
-    "phpunit/phpunit": "^9.0",
+    "larastan/larastan": "^3.0",
+    "orchestra/testbench": "^11.0",
+    "phpunit/phpunit": "^12.5.12",
     "rregeer/phpunit-coverage-check": "^0.3"
   },
   "autoload": {
@@ -41,13 +41,13 @@
         "cp -Rfp .githooks/. .git/hooks/; chmod +x .git/hooks/*"
     ],
     "test": [
-        "phpdbg -qrr vendor/phpunit/phpunit/phpunit --coverage-clover clover.xml --coverage-html .coverage-report --coverage-text",
+        "php vendor/phpunit/phpunit/phpunit --coverage-clover clover.xml --coverage-html .coverage-report --coverage-text",
         "coverage-check clover.xml 100",
         "phpstan analyse --level=max"
     ],
     "phpunit": "phpunit",
     "coverage": [
-        "phpdbg -qrr vendor/phpunit/phpunit/phpunit --coverage-clover clover.xml --coverage-html .coverage-report --coverage-text",
+        "php vendor/phpunit/phpunit/phpunit --coverage-clover clover.xml --coverage-html .coverage-report --coverage-text",
         "coverage-check clover.xml 100"
     ],
     "phpstan": "phpstan analyse --level=max"
